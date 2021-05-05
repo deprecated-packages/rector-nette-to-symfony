@@ -15,6 +15,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NetteToSymfony\ValueObject\NetteFormMethodToSymfonyTypeClass;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -26,30 +27,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class NetteFormToSymfonyFormRector extends AbstractRector
 {
-    /**
-     * @var array<string, string>
-     */
-    private const ADD_METHOD_TO_FORM_TYPE = [
-        'addText' => 'Symfony\Component\Form\Extension\Core\Type\TextType',
-        'addPassword' => 'Symfony\Component\Form\Extension\Core\Type\PasswordType',
-        'addTextArea' => 'Symfony\Component\Form\Extension\Core\Type\TextareaType',
-        'addEmail' => 'Symfony\Component\Form\Extension\Core\Type\EmailType',
-        'addInteger' => 'Symfony\Component\Form\Extension\Core\Type\IntegerType',
-        'addHidden' => 'Symfony\Component\Form\Extension\Core\Type\HiddenType',
-        // https://symfony.com/doc/current/reference/forms/types/checkbox.html
-        'addCheckbox' => 'Symfony\Component\Form\Extension\Core\Type\CheckboxType',
-        'addUpload' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
-        'addImage' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
-        'addMultiUpload' => 'Symfony\Component\Form\Extension\Core\Type\FileType',
-        // https://symfony.com/doc/current/reference/forms/types/choice.html#select-tag-checkboxes-or-radio-buttons
-        'addSelect' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addRadioList' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addCheckboxList' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addMultiSelect' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
-        'addSubmit' => 'Symfony\Component\Form\Extension\Core\Type\SubmitType',
-        'addButton' => 'Symfony\Component\Form\Extension\Core\Type\ButtonType',
-    ];
-
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -57,9 +34,9 @@ final class NetteFormToSymfonyFormRector extends AbstractRector
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
-use Nette\Application\UI;
+use Nette\Application\UI\Presenter;
 
-class SomePresenter extends UI\Presenter
+final class SomePresenter extends Presenter
 {
     public function someAction()
     {
@@ -71,17 +48,19 @@ class SomePresenter extends UI\Presenter
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
-use Nette\Application\UI;
+use Nette\Application\UI\Presenter;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class SomePresenter extends UI\Presenter
+final class SomePresenter extends Presenter
 {
     public function someAction()
     {
         $form = $this->createFormBuilder();
-        $form->add('name', \Symfony\Component\Form\Extension\Core\Type\TextType::class, [
+        $form->add('name', TextType::class, [
             'label' => 'Name:'
         ]);
-        $form->add('login', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, [
+        $form->add('login', SubmitType::class, [
             'label' => 'Sign up'
         ]);
     }
@@ -123,7 +102,7 @@ CODE_SAMPLE
             return null;
         }
 
-        foreach (self::ADD_METHOD_TO_FORM_TYPE as $method => $classType) {
+        foreach (NetteFormMethodToSymfonyTypeClass::ADD_METHOD_TO_FORM_TYPE as $method => $classType) {
             if (! $this->isName($node->name, $method)) {
                 continue;
             }

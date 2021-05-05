@@ -167,7 +167,7 @@ CODE_SAMPLE
             return $formTypeClass;
         }
 
-        return $node;
+        return null;
     }
 
     private function collectFormMethodCallsAndCreateFormTypeClass(ClassMethod $classMethod): ?Class_
@@ -197,6 +197,7 @@ CODE_SAMPLE
     private function createFormTypeClassFromBuildFormClassMethod(ClassMethod $buildFormClassMethod): Class_
     {
         $formTypeClass = new Class_('SomeFormType');
+        $formTypeClass->flags |= Class_::MODIFIER_FINAL;
         $formTypeClass->extends = new FullyQualified('Symfony\Component\Form\AbstractType');
         $formTypeClass->stmts[] = $buildFormClassMethod;
 
