@@ -37,7 +37,11 @@
     "scripts": {
         "check-cs": "vendor/bin/ecs check --ansi",
         "fix-cs": "vendor/bin/ecs check --fix --ansi",
-        "phpstan": "vendor/bin/phpstan analyse --ansi --error-format symplify"
+        "phpstan": "vendor/bin/phpstan analyse --ansi --error-format symplify",
+        "docs": [
+            "vendor/bin/rule-doc-generator generate src --output-file docs/rector_rules_overview.md --ansi",
+            "vendor/bin/ecs check-markdown docs/rector_rules_overview.md --ansi --fix"
+        ]
     },
     "extra": {
         "rector": {
