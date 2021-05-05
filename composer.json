@@ -18,7 +18,8 @@
         "phpstan/extension-installer": "^1.1",
         "rector/rector-phpstan-rules": "^0.1",
         "nette/application": "^3.1",
-        "symfony/form": "^5.2"
+        "symfony/form": "^5.2",
+        "nette/forms": "^3.1"
     },
     "autoload": {
         "psr-4": {
