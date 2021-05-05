@@ -7,7 +7,6 @@ namespace Rector\NetteToSymfony\Rector\Class_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Namespace_;
@@ -86,12 +85,16 @@ class SomeForm extends Control
 CODE_SAMPLE
 ,
                 <<<'CODE_SAMPLE'
-class SomeFormController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+final class SomeFormController extends AbstractController
 {
     /**
      * @Route(...)
      */
-    public function actionSomeForm(\Symfony\Component\HttpFoundation\Request $request): \Symfony\Component\HttpFoundation\Response
+    public function actionSomeForm(Request $request): Response
     {
         $form = $this->createForm(SomeFormType::class);
         $form->handleRequest($request);
@@ -121,7 +124,6 @@ class SomeFormType extends AbstractType
 }
 CODE_SAMPLE
             ),
-
         ]);
     }
 
@@ -196,7 +198,6 @@ CODE_SAMPLE
     {
         $formTypeClass = new Class_('SomeFormType');
         $formTypeClass->extends = new FullyQualified('Symfony\Component\Form\AbstractType');
-
         $formTypeClass->stmts[] = $buildFormClassMethod;
 
         return $formTypeClass;

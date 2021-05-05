@@ -5,7 +5,7 @@ namespace Rector\NetteToSymfony\Tests\Rector\Class_\FormControlToControllerAndFo
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Control;
 
-class SomeForm extends Control
+final class SomeForm extends Control
 {
     public function createComponentForm()
     {
@@ -30,7 +30,7 @@ namespace Rector\NetteToSymfony\Tests\Rector\Class_\FormControlToControllerAndFo
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Control;
 
-class SomeFormType extends \Symfony\Component\Form\AbstractType
+final class SomeFormType extends \Symfony\Component\Form\AbstractType
 {
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $formBuilder, array $options)
     {
