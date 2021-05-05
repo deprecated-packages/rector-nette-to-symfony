@@ -6,32 +6,28 @@ on:
         branches:
             - main
 
+env:
+    # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
+    COMPOSER_ROOT_VERSION: "dev-main"
+
 jobs:
     code_analysis:
+        runs-on: ubuntu-latest
         strategy:
-            fail-fast: false
             matrix:
                 actions:
                     -
-                        name: 'Composer Validate'
-                        run: composer validate --strict
-
+                        name: 'PHPStan'
+                        run: composer phpstan
                     -
                         name: 'ECS'
-                        run: 'vendor/bin/ecs check --ansi'
-
-                    -
-                        name: 'PHPStan'
-                        run: 'composer phpstan --ansi'
-
+                        run: composer check-cs
 
         name: ${{ matrix.actions.name }}
-        runs-on: ubuntu-latest
 
         steps:
             -   uses: actions/checkout@v2
 
-            # see https://github.com/shivammathur/setup-php
             -
                 uses: shivammathur/setup-php@v2
                 with:
