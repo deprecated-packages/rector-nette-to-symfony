@@ -2,13 +2,13 @@
 
 namespace Rector\NetteToSymfony\Tests\Rector\MethodCall\WrapTransParameterNameRector\Fixture;
 
-use Symfony\Component\Translation\Translator;
+use Rector\NetteToSymfony\Tests\Rector\MethodCall\WrapTransParameterNameRector\Source\LocalTranslator;
 
 final class SomeController
 {
     public function run()
     {
-        $translator = new Translator('');
+        $translator = new LocalTranslator('');
         $translated = $translator->trans(
             'Hello %name%',
             ['name' => 'Tom']
@@ -22,13 +22,13 @@ final class SomeController
 
 namespace Rector\NetteToSymfony\Tests\Rector\MethodCall\WrapTransParameterNameRector\Fixture;
 
-use Symfony\Component\Translation\Translator;
+use Rector\NetteToSymfony\Tests\Rector\MethodCall\WrapTransParameterNameRector\Source\LocalTranslator;
 
 final class SomeController
 {
     public function run()
     {
-        $translator = new Translator('');
+        $translator = new LocalTranslator('');
         $translated = $translator->trans(
             'Hello %name%',
             ['%name%' => 'Tom']
