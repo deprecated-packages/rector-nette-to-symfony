@@ -21,20 +21,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class SymfonyFormAbstractTypeFactory
 {
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    public function __construct(NodeFactory $nodeFactory, NodeNameResolver $nodeNameResolver)
-    {
-        $this->nodeFactory = $nodeFactory;
-        $this->nodeNameResolver = $nodeNameResolver;
+    public function __construct(
+        private NodeFactory $nodeFactory,
+        private NodeNameResolver $nodeNameResolver
+    ) {
     }
 
     /**

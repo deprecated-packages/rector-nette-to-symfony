@@ -7,34 +7,15 @@ namespace Rector\NetteToSymfony\ValueObject;
 final class RouteInfo
 {
     /**
-     * @var string
-     */
-    private $class;
-
-    /**
-     * @var string
-     */
-    private $method;
-
-    /**
-     * @var string
-     */
-    private $path;
-
-    /**
-     * @var string[]
-     */
-    private $httpMethods = [];
-
-    /**
      * @param string[] $httpMethods
      */
-    public function __construct(string $class, string $method, string $path, array $httpMethods = [])
-    {
-        $this->class = $class;
-        $this->method = $method;
-        $this->path = $path;
-        $this->httpMethods = $httpMethods;
+    public function __construct(
+        private string $class,
+        private string $method,
+        private string $path,
+        private array $httpMethods = [
+        ]
+    ) {
     }
 
     public function getClass(): string

@@ -16,14 +16,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class DeleteFactoryInterfaceRector extends AbstractRector
 {
-    /**
-     * @var NetteControlFactoryInterfaceAnalyzer
-     */
-    private $netteControlFactoryInterfaceAnalyzer;
-
-    public function __construct(NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer)
-    {
-        $this->netteControlFactoryInterfaceAnalyzer = $netteControlFactoryInterfaceAnalyzer;
+    public function __construct(
+        private NetteControlFactoryInterfaceAnalyzer $netteControlFactoryInterfaceAnalyzer
+    ) {
     }
 
     public function getRuleDefinition(): RuleDefinition

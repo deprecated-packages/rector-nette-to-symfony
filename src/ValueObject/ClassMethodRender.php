@@ -12,41 +12,17 @@ use Rector\Nette\Contract\ValueObject\ParameterArrayInterface;
 final class ClassMethodRender implements ParameterArrayInterface
 {
     /**
-     * @var Node[]
-     */
-    private $nodesToRemove = [];
-
-    /**
-     * @var array<string, Expr>
-     */
-    private $templateVariables = [];
-
-    /**
-     * @var array<string, Assign[]>
-     */
-    private $conditionalAssigns = [];
-
-    /**
-     * @var Expr[]
-     */
-    private $templateFileExprs = [];
-
-    /**
      * @param Expr[] $templateFileExprs
      * @param array<string, Expr> $templateVariables
      * @param Node[] $nodesToRemove
      * @param array<string, Assign[]> $conditionalAssigns
      */
     public function __construct(
-        array $templateFileExprs,
-        array $templateVariables,
-        array $nodesToRemove,
-        array $conditionalAssigns
+        private array $templateFileExprs,
+        private array $templateVariables,
+        private array $nodesToRemove,
+        private array $conditionalAssigns
     ) {
-        $this->templateVariables = $templateVariables;
-        $this->nodesToRemove = $nodesToRemove;
-        $this->conditionalAssigns = $conditionalAssigns;
-        $this->templateFileExprs = $templateFileExprs;
     }
 
     /**

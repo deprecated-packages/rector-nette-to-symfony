@@ -17,29 +17,11 @@ use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 
 final class OnFormVariableMethodCallsCollector
 {
-    /**
-     * @var SimpleCallableNodeTraverser
-     */
-    private $simpleCallableNodeTraverser;
-
-    /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-
-    /**
-     * @var NodeComparator
-     */
-    private $nodeComparator;
-
     public function __construct(
-        SimpleCallableNodeTraverser $simpleCallableNodeTraverser,
-        NodeTypeResolver $nodeTypeResolver,
-        NodeComparator $nodeComparator
+        private SimpleCallableNodeTraverser $simpleCallableNodeTraverser,
+        private NodeTypeResolver $nodeTypeResolver,
+        private NodeComparator $nodeComparator
     ) {
-        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
-        $this->nodeTypeResolver = $nodeTypeResolver;
-        $this->nodeComparator = $nodeComparator;
     }
 
     /**

@@ -41,59 +41,23 @@ final class ClassMethodRenderAnalyzer
     private $conditionalAssigns = [];
 
     /**
-     * @var SimpleCallableNodeTraverser
-     */
-    private $simpleCallableNodeTraverser;
-
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    /**
      * @var Expr[]
      */
     private $templateFileExprs = [];
-
-    /**
-     * @var ScopeNestingComparator
-     */
-    private $scopeNestingComparator;
-
-    /**
-     * @var BetterNodeFinder
-     */
-    private $betterNodeFinder;
-
-    /**
-     * @var ThisTemplatePropertyFetchAnalyzer
-     */
-    private $thisTemplatePropertyFetchAnalyzer;
 
     /**
      * @var Return_|null
      */
     private $lastReturn;
 
-    /**
-     * @var ReturnAnalyzer
-     */
-    private $returnAnalyzer;
-
     public function __construct(
-        SimpleCallableNodeTraverser $simpleCallableNodeTraverser,
-        NodeNameResolver $nodeNameResolver,
-        ScopeNestingComparator $scopeNestingComparator,
-        BetterNodeFinder $betterNodeFinder,
-        ThisTemplatePropertyFetchAnalyzer $thisTemplatePropertyFetchAnalyzer,
-        ReturnAnalyzer $returnAnalyzer
+        private SimpleCallableNodeTraverser $simpleCallableNodeTraverser,
+        private NodeNameResolver $nodeNameResolver,
+        private ScopeNestingComparator $scopeNestingComparator,
+        private BetterNodeFinder $betterNodeFinder,
+        private ThisTemplatePropertyFetchAnalyzer $thisTemplatePropertyFetchAnalyzer,
+        private ReturnAnalyzer $returnAnalyzer
     ) {
-        $this->simpleCallableNodeTraverser = $simpleCallableNodeTraverser;
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->scopeNestingComparator = $scopeNestingComparator;
-        $this->betterNodeFinder = $betterNodeFinder;
-        $this->thisTemplatePropertyFetchAnalyzer = $thisTemplatePropertyFetchAnalyzer;
-        $this->returnAnalyzer = $returnAnalyzer;
     }
 
     public function collectFromClassMethod(ClassMethod $classMethod): ClassMethodRender

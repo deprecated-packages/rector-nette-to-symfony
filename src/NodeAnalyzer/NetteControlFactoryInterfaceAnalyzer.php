@@ -13,14 +13,9 @@ use Rector\TypeDeclaration\TypeInferer\ReturnTypeInferer;
 
 final class NetteControlFactoryInterfaceAnalyzer
 {
-    /**
-     * @var ReturnTypeInferer
-     */
-    private $returnTypeInferer;
-
-    public function __construct(ReturnTypeInferer $returnTypeInferer)
-    {
-        $this->returnTypeInferer = $returnTypeInferer;
+    public function __construct(
+        private ReturnTypeInferer $returnTypeInferer
+    ) {
     }
 
     /**

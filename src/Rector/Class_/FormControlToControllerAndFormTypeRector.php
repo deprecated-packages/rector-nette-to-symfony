@@ -27,36 +27,12 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FormControlToControllerAndFormTypeRector extends AbstractRector
 {
-    /**
-     * @var OnFormVariableMethodCallsCollector
-     */
-    private $onFormVariableMethodCallsCollector;
-
-    /**
-     * @var SymfonyControllerFactory
-     */
-    private $symfonyControllerFactory;
-
-    /**
-     * @var BuildFormClassMethodFactory
-     */
-    private $buildFormClassMethodFactory;
-
-    /**
-     * @var SymfonyMethodCallsFactory
-     */
-    private $symfonyMethodCallsFactory;
-
     public function __construct(
-        OnFormVariableMethodCallsCollector $onFormVariableMethodCallsCollector,
-        SymfonyControllerFactory $symfonyControllerFactory,
-        BuildFormClassMethodFactory $buildFormClassMethodFactory,
-        SymfonyMethodCallsFactory $symfonyMethodCallsFactory
+        private OnFormVariableMethodCallsCollector $onFormVariableMethodCallsCollector,
+        private SymfonyControllerFactory $symfonyControllerFactory,
+        private BuildFormClassMethodFactory $buildFormClassMethodFactory,
+        private SymfonyMethodCallsFactory $symfonyMethodCallsFactory
     ) {
-        $this->onFormVariableMethodCallsCollector = $onFormVariableMethodCallsCollector;
-        $this->symfonyControllerFactory = $symfonyControllerFactory;
-        $this->buildFormClassMethodFactory = $buildFormClassMethodFactory;
-        $this->symfonyMethodCallsFactory = $symfonyMethodCallsFactory;
     }
 
     public function getRuleDefinition(): RuleDefinition
