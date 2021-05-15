@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -17,4 +18,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/Rector',
             __DIR__ . '/../src/ValueObject',
         ]);
+
+    $services->set(SimpleCallableNodeTraverser::class);
 };
