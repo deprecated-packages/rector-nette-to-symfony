@@ -82,57 +82,15 @@ final class AssertManipulator
      */
     private const SELF = 'self';
 
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    /**
-     * @var NodeTypeResolver
-     */
-    private $nodeTypeResolver;
-
-    /**
-     * @var ValueResolver
-     */
-    private $valueResolver;
-
-    /**
-     * @var StringTypeAnalyzer
-     */
-    private $stringTypeAnalyzer;
-
-    /**
-     * @var NodesToRemoveCollector
-     */
-    private $nodesToRemoveCollector;
-
-    /**
-     * @var NodesToAddCollector
-     */
-    private $nodesToAddCollector;
-
-    /**
-     * @var PhpDocInfoFactory
-     */
-    private $phpDocInfoFactory;
-
     public function __construct(
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver,
-        NodesToAddCollector $nodesToAddCollector,
-        NodesToRemoveCollector $nodesToRemoveCollector,
-        StringTypeAnalyzer $stringTypeAnalyzer,
-        ValueResolver $valueResolver,
-        PhpDocInfoFactory $phpDocInfoFactory
+        private NodeNameResolver $nodeNameResolver,
+        private NodeTypeResolver $nodeTypeResolver,
+        private NodesToAddCollector $nodesToAddCollector,
+        private NodesToRemoveCollector $nodesToRemoveCollector,
+        private StringTypeAnalyzer $stringTypeAnalyzer,
+        private ValueResolver $valueResolver,
+        private PhpDocInfoFactory $phpDocInfoFactory
     ) {
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeTypeResolver = $nodeTypeResolver;
-        $this->valueResolver = $valueResolver;
-        $this->stringTypeAnalyzer = $stringTypeAnalyzer;
-        $this->nodesToRemoveCollector = $nodesToRemoveCollector;
-        $this->nodesToAddCollector = $nodesToAddCollector;
-        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     /**

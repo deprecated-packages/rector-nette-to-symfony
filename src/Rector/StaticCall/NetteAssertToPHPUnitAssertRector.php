@@ -17,14 +17,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class NetteAssertToPHPUnitAssertRector extends AbstractRector
 {
-    /**
-     * @var AssertManipulator
-     */
-    private $assertManipulator;
-
-    public function __construct(AssertManipulator $assertManipulator)
-    {
-        $this->assertManipulator = $assertManipulator;
+    public function __construct(
+        private AssertManipulator $assertManipulator
+    ) {
     }
 
     public function getRuleDefinition(): RuleDefinition

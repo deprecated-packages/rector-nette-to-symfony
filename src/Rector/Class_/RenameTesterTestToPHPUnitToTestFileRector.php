@@ -30,14 +30,9 @@ final class RenameTesterTestToPHPUnitToTestFileRector extends AbstractRector
      */
     private const PHPT_SUFFIX_REGEX = '#\.phpt$#';
 
-    /**
-     * @var FileInfoDeletionAnalyzer
-     */
-    private $fileInfoDeletionAnalyzer;
-
-    public function __construct(FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer)
-    {
-        $this->fileInfoDeletionAnalyzer = $fileInfoDeletionAnalyzer;
+    public function __construct(
+        private FileInfoDeletionAnalyzer $fileInfoDeletionAnalyzer
+    ) {
     }
 
     public function getRuleDefinition(): RuleDefinition

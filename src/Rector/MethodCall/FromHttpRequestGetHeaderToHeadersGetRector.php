@@ -22,14 +22,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FromHttpRequestGetHeaderToHeadersGetRector extends AbstractRector
 {
-    /**
-     * @var ClassMethodManipulator
-     */
-    private $classMethodManipulator;
-
-    public function __construct(ClassMethodManipulator $classMethodManipulator)
-    {
-        $this->classMethodManipulator = $classMethodManipulator;
+    public function __construct(
+        private ClassMethodManipulator $classMethodManipulator
+    ) {
     }
 
     public function getRuleDefinition(): RuleDefinition

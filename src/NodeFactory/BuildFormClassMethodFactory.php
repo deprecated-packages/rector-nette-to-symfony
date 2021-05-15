@@ -13,14 +13,9 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 
 final class BuildFormClassMethodFactory
 {
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    public function __construct(NodeFactory $nodeFactory)
-    {
-        $this->nodeFactory = $nodeFactory;
+    public function __construct(
+        private NodeFactory $nodeFactory
+    ) {
     }
 
     public function create(Variable $formBuilderVariable): ClassMethod

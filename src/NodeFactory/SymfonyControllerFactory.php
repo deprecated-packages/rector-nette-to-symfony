@@ -14,22 +14,10 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 
 final class SymfonyControllerFactory
 {
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    /**
-     * @var ActionWithFormProcessClassMethodFactory
-     */
-    private $actionWithFormProcessClassMethodFactory;
-
     public function __construct(
-        NodeNameResolver $nodeNameResolver,
-        ActionWithFormProcessClassMethodFactory $actionWithFormProcessClassMethodFactory
+        private NodeNameResolver $nodeNameResolver,
+        private ActionWithFormProcessClassMethodFactory $actionWithFormProcessClassMethodFactory
     ) {
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->actionWithFormProcessClassMethodFactory = $actionWithFormProcessClassMethodFactory;
     }
 
     public function createNamespace(Class_ $node, Class_ $formTypeClass): ?Namespace_

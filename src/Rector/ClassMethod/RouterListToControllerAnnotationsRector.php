@@ -38,26 +38,6 @@ final class RouterListToControllerAnnotationsRector extends AbstractRector
     private const ACTION_RENDER_NAME_MATCHING_REGEX = '#^(action|render)(?<short_action_name>.*?$)#sm';
 
     /**
-     * @var RouteInfoFactory
-     */
-    private $routeInfoFactory;
-
-    /**
-     * @var ReturnTypeInferer
-     */
-    private $returnTypeInferer;
-
-    /**
-     * @var ExplicitRouteAnnotationDecorator
-     */
-    private $explicitRouteAnnotationDecorator;
-
-    /**
-     * @var SymfonyRouteTagValueNodeFactory
-     */
-    private $symfonyRouteTagValueNodeFactory;
-
-    /**
      * @var ObjectType[]
      */
     private $routerObjectTypes = [];
@@ -68,16 +48,11 @@ final class RouterListToControllerAnnotationsRector extends AbstractRector
     private $routeListObjectType;
 
     public function __construct(
-        ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator,
-        ReturnTypeInferer $returnTypeInferer,
-        RouteInfoFactory $routeInfoFactory,
-        SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory
+        private ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator,
+        private ReturnTypeInferer $returnTypeInferer,
+        private RouteInfoFactory $routeInfoFactory,
+        private SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory
     ) {
-        $this->routeInfoFactory = $routeInfoFactory;
-        $this->returnTypeInferer = $returnTypeInferer;
-        $this->explicitRouteAnnotationDecorator = $explicitRouteAnnotationDecorator;
-        $this->symfonyRouteTagValueNodeFactory = $symfonyRouteTagValueNodeFactory;
-
         $this->routerObjectTypes = [
             new ObjectType('Nette\Application\IRouter'),
             new ObjectType('Nette\Routing\Router'),

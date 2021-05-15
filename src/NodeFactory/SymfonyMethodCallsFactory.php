@@ -18,20 +18,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class SymfonyMethodCallsFactory
 {
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    public function __construct(NodeNameResolver $nodeNameResolver, NodeFactory $nodeFactory)
-    {
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeFactory = $nodeFactory;
+    public function __construct(
+        private NodeNameResolver $nodeNameResolver,
+        private NodeFactory $nodeFactory
+    ) {
     }
 
     /**

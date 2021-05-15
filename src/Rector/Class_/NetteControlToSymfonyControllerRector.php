@@ -32,36 +32,12 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class NetteControlToSymfonyControllerRector extends AbstractRector
 {
-    /**
-     * @var ActionRenderFactory
-     */
-    private $actionRenderFactory;
-
-    /**
-     * @var NetteClassAnalyzer
-     */
-    private $netteClassAnalyzer;
-
-    /**
-     * @var ClassNaming
-     */
-    private $classNaming;
-
-    /**
-     * @var ClassMethodRenderAnalyzer
-     */
-    private $classMethodRenderAnalyzer;
-
     public function __construct(
-        ActionRenderFactory $actionRenderFactory,
-        NetteClassAnalyzer $netteClassAnalyzer,
-        ClassNaming $classNaming,
-        ClassMethodRenderAnalyzer $classMethodRenderAnalyzer
+        private ActionRenderFactory $actionRenderFactory,
+        private NetteClassAnalyzer $netteClassAnalyzer,
+        private ClassNaming $classNaming,
+        private ClassMethodRenderAnalyzer $classMethodRenderAnalyzer
     ) {
-        $this->actionRenderFactory = $actionRenderFactory;
-        $this->netteClassAnalyzer = $netteClassAnalyzer;
-        $this->classNaming = $classNaming;
-        $this->classMethodRenderAnalyzer = $classMethodRenderAnalyzer;
     }
 
     public function getRuleDefinition(): RuleDefinition

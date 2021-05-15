@@ -16,14 +16,9 @@ final class ExplicitRouteAnnotationDecorator
      */
     public const HAS_ROUTE_ANNOTATION = 'has_route_annotation';
 
-    /**
-     * @var PhpDocInfoFactory
-     */
-    private $phpDocInfoFactory;
-
-    public function __construct(PhpDocInfoFactory $phpDocInfoFactory)
-    {
-        $this->phpDocInfoFactory = $phpDocInfoFactory;
+    public function __construct(
+        private PhpDocInfoFactory $phpDocInfoFactory
+    ) {
     }
 
     public function decorateClassMethodWithRouteAnnotation(

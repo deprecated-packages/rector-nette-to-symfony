@@ -7,46 +7,16 @@ namespace Rector\NetteToSymfony\ValueObject;
 final class EventInfo
 {
     /**
-     * @var string
-     */
-    private $class;
-
-    /**
-     * @var string
-     */
-    private $constant;
-
-    /**
-     * @var string
-     */
-    private $eventClass;
-
-    /**
-     * @var string[]
-     */
-    private $oldStringAliases = [];
-
-    /**
-     * @var string[]
-     */
-    private $oldClassConstAliases = [];
-
-    /**
      * @param string[] $oldStringAliases
      * @param string[] $oldClassConstAliases
      */
     public function __construct(
-        array $oldStringAliases,
-        array $oldClassConstAliases,
-        string $class,
-        string $constant,
-        string $eventClass
+        private array $oldStringAliases,
+        private array $oldClassConstAliases,
+        private string $class,
+        private string $constant,
+        private string $eventClass
     ) {
-        $this->oldStringAliases = $oldStringAliases;
-        $this->oldClassConstAliases = $oldClassConstAliases;
-        $this->class = $class;
-        $this->constant = $constant;
-        $this->eventClass = $eventClass;
     }
 
     /**

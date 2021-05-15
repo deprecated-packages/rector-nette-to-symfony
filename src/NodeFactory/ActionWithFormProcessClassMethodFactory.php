@@ -18,14 +18,9 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 
 final class ActionWithFormProcessClassMethodFactory
 {
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    public function __construct(NodeFactory $nodeFactory)
-    {
-        $this->nodeFactory = $nodeFactory;
+    public function __construct(
+        private NodeFactory $nodeFactory
+    ) {
     }
 
     public function create(string $formTypeClass): ClassMethod

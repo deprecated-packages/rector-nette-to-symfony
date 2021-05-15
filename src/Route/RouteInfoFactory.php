@@ -19,36 +19,12 @@ use Rector\NodeNameResolver\NodeNameResolver;
 
 final class RouteInfoFactory
 {
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    /**
-     * @var ValueResolver
-     */
-    private $valueResolver;
-
-    /**
-     * @var NodeRepository
-     */
-    private $nodeRepository;
-
-    /**
-     * @var ReflectionProvider
-     */
-    private $reflectionProvider;
-
     public function __construct(
-        NodeNameResolver $nodeNameResolver,
-        NodeRepository $nodeRepository,
-        ValueResolver $valueResolver,
-        ReflectionProvider $reflectionProvider
+        private NodeNameResolver $nodeNameResolver,
+        private NodeRepository $nodeRepository,
+        private ValueResolver $valueResolver,
+        private ReflectionProvider $reflectionProvider
     ) {
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->valueResolver = $valueResolver;
-        $this->nodeRepository = $nodeRepository;
-        $this->reflectionProvider = $reflectionProvider;
     }
 
     public function createFromNode(Node $node): ?RouteInfo
