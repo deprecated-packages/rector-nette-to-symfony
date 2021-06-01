@@ -137,7 +137,8 @@ CODE_SAMPLE
             }
 
             $shortClassName = $this->resolveControllerClassName($node);
-            $directory = $this->file->getSmartFileInfo()->getPath();
+            $smartFileInfo = $this->file->getSmartFileInfo();
+            $directory = $smartFileInfo->getPath();
             $controllerFilePath = $directory . '/' . $shortClassName . '.php';
 
             $addedFileWithNodes = new AddedFileWithNodes($controllerFilePath, [
@@ -185,16 +186,15 @@ CODE_SAMPLE
         return $formTypeClass;
     }
 
-    private function resolveControllerClassName(Node | Class_ $node): string
+    private function resolveControllerClassName(Class_ $class): string
     {
-        $shortClassName = $this->nodeNameResolver->getShortName($node);
+        $shortClassName = $this->nodeNameResolver->getShortName($class);
         if (str_ends_with($shortClassName, 'Form')) {
             $shortClassName = Strings::before($shortClassName, 'Form');
         } else {
             $shortClassName = Strings::before($shortClassName, 'Control');
         }
 
-        $shortClassName .= 'Controller';
-        return $shortClassName;
+        return $shortClassName . 'Controller';
     }
 }
