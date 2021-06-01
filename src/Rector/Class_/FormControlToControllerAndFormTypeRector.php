@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rector\NetteToSymfony\Rector\Class_;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -135,7 +136,11 @@ CODE_SAMPLE
                 continue;
             }
 
-            $addedFileWithNodes = new AddedFileWithNodes('src/Controller/SomeFormController.php', [
+            $shortClassName = $this->resolveControllerClassName($node);
+            $directory = $this->file->getSmartFileInfo()->getPath();
+            $controllerFilePath = $directory . '/' . $shortClassName . '.php';
+
+            $addedFileWithNodes = new AddedFileWithNodes($controllerFilePath, [
                 $symfonyControllerNamespace,
             ]);
             $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithNodes);
@@ -178,5 +183,18 @@ CODE_SAMPLE
         $formTypeClass->stmts[] = $buildFormClassMethod;
 
         return $formTypeClass;
+    }
+
+    private function resolveControllerClassName(Node | Class_ $node): string
+    {
+        $shortClassName = $this->nodeNameResolver->getShortName($node);
+        if (str_ends_with($shortClassName, 'Form')) {
+            $shortClassName = Strings::before($shortClassName, 'Form');
+        } else {
+            $shortClassName = Strings::before($shortClassName, 'Control');
+        }
+
+        $shortClassName .= 'Controller';
+        return $shortClassName;
     }
 }
