@@ -15,4 +15,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ]);
+
+    $parameters->set(Option::SKIP, [
+        // part of tests
+        '*/Source/*'
+    ]);
 };
