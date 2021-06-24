@@ -11,6 +11,8 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDoc\DoctrineAnnotationTagValueNode;
 use Rector\BetterPhpDocParser\ValueObject\PhpDoc\DoctrineAnnotation\CurlyListNode;
@@ -51,7 +53,8 @@ final class RouterListToControllerAnnotationsRector extends AbstractRector
         private ExplicitRouteAnnotationDecorator $explicitRouteAnnotationDecorator,
         private ReturnTypeInferer $returnTypeInferer,
         private RouteInfoFactory $routeInfoFactory,
-        private SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory
+        private SymfonyRouteTagValueNodeFactory $symfonyRouteTagValueNodeFactory,
+        private ReflectionProvider $reflectionProvider
     ) {
         $this->routerObjectTypes = [
             new ObjectType('Nette\Application\IRouter'),
@@ -150,15 +153,16 @@ CODE_SAMPLE
 
         /** @var RouteInfo $routeInfo */
         foreach ($routeInfos as $routeInfo) {
-            $classMethod = $this->resolveControllerClassMethod($routeInfo);
-            if (! $classMethod instanceof ClassMethod) {
+            $methodReflection = $this->resolveControllerClassMethod($routeInfo);
+            if (! $methodReflection instanceof ClassMethod) {
                 continue;
             }
 
             $symfonyRoutePhpDocTagValueNode = $this->createSymfonyRoutePhpDocTagValueNode($routeInfo);
 
+            // @todo resolve in standalone rule while traversing via ClassMethod
             $this->explicitRouteAnnotationDecorator->decorateClassMethodWithRouteAnnotation(
-                $classMethod,
+                $methodReflection,
                 $symfonyRoutePhpDocTagValueNode
             );
         }
@@ -223,14 +227,14 @@ CODE_SAMPLE
         return $routeInfos;
     }
 
-    private function resolveControllerClassMethod(RouteInfo $routeInfo): ?ClassMethod
+    private function resolveControllerClassMethod(RouteInfo $routeInfo): ?MethodReflection
     {
-        $classNode = $this->nodeRepository->findClass($routeInfo->getClass());
-        if (! $classNode instanceof Class_) {
+        if (! $this->reflectionProvider->hasClass($routeInfo->getClass())) {
             return null;
         }
 
-        return $classNode->getMethod($routeInfo->getMethod());
+        $classReflection = $this->reflectionProvider->getClass($routeInfo->getClass());
+        return $classReflection->getNativeMethod($routeInfo->getMethod());
     }
 
     private function createSymfonyRoutePhpDocTagValueNode(RouteInfo $routeInfo): DoctrineAnnotationTagValueNode
