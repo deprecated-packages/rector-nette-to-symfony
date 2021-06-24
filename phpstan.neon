@@ -19,3 +19,12 @@ parameters:
 
         # is always set
         - '#Parameter \#1 \$smartFileInfo of method Rector\\Testing\\PHPUnit\\AbstractRectorTestCase\:\:assertFileWasRemoved\(\) expects Symplify\\SmartFileSystem\\SmartFileInfo, Symplify\\SmartFileSystem\\SmartFileInfo\|null given#'
+
+        # waits for phsptan reflection provider refactoring
+        - '#Call to an undefined method Rector\\NodeCollector\\NodeCollector\\NodeRepository\:\:(.*?)\(\)#'
+        -
+            message: '#Unreachable statement \- code above always terminates#'
+            # skip in tests
+            paths:
+                - tests/Rector/ClassMethod/RouterListToControllerAnnotationsRector/RouterListToControllerAnnotationsRectorTest.php
+
