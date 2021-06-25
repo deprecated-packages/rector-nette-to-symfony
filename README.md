@@ -1,5 +1,9 @@
 # Rector Nette to Symfony
 
+**See https://github.com/rectorphp/rector-src/pull/290 for deprecation**
+
+<br>
+
 Do you need to migrate from Nette to Symfony? You can ↓
 
 - [How we Migrated 54 357-lines Application from Nette to Symfony in 2 People under 80 Hours](https://tomasvotruba.com/blog/2019/08/26/how-we-migrated-54-357-lines-of-code-nette-to-symfony-in-2-people-under-80-hours/)
